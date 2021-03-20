@@ -1,2 +1,5 @@
 runtime: python37
+
 entrypoint: python main.py
+
+instance_class: F4
