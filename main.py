@@ -1,7 +1,11 @@
 import cv2
 import imutils
+import wget
 from flask_opencv_streamer.streamer import Streamer
 from imageai.Detection.Custom import CustomVideoObjectDetection
+
+url = 'https://github.com/prafair/detect-parking-lot/raw/main/detection_model-ex-017--loss-0022.945.h5'
+wget.download(url, 'model.h5')
 
 port = 8080
 require_login = False
@@ -11,7 +15,7 @@ camera = cv2.VideoCapture("https://s2.moidom-stream.ru/s/public/0000010491.m3u8"
 
 detector = CustomVideoObjectDetection()
 detector.setModelTypeAsYOLOv3()
-detector.setModelPath("detection_model-ex-017--loss-0022.945.h5")
+detector.setModelPath("model.h5")
 detector.setJsonPath("detection_config.json")
 detector.loadModel()
 
