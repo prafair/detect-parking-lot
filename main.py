@@ -6,7 +6,7 @@ from google.cloud import storage
 
 bucket_name = "fleet-tractor-308119.appspot.com"
 source_blob_name = "detection_model-ex-017--loss-0022.945.h5"
-destination_file_name = "new_model.h5"
+destination_file_name = "/tmp/new_model.h5"
 
 storage_client = storage.Client(project="fleet-tractor-308119")
 
@@ -29,7 +29,7 @@ camera = cv2.VideoCapture("https://s2.moidom-stream.ru/s/public/0000010491.m3u8"
 
 detector = CustomVideoObjectDetection()
 detector.setModelTypeAsYOLOv3()
-detector.setModelPath("new_model.h5")
+detector.setModelPath("/tmp/new_model.h5")
 detector.setJsonPath("detection_config.json")
 detector.loadModel()
 
