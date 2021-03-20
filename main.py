@@ -1,12 +1,15 @@
 import cv2
 import imutils
+import os
 from flask_opencv_streamer.streamer import Streamer
 from imageai.Detection.Custom import CustomVideoObjectDetection
 from google.cloud import storage
 
+execution_path = os.getcwd()
+
 bucket_name = "fleet-tractor-308119.appspot.com"
 source_blob_name = "detection_model-ex-017--loss-0022.945.h5"
-destination_file_name = "/tmp/new_model.h5"
+destination_file_name = os.path.join(execution_path, "/tmp/new_model.h5")
 
 storage_client = storage.Client(project="fleet-tractor-308119")
 
@@ -29,7 +32,7 @@ camera = cv2.VideoCapture("https://s2.moidom-stream.ru/s/public/0000010491.m3u8"
 
 detector = CustomVideoObjectDetection()
 detector.setModelTypeAsYOLOv3()
-detector.setModelPath("/tmp/new_model.h5")
+detector.setModelPath(os.path.join(execution_path, "/tmp/new_model.h5"))
 detector.setJsonPath("detection_config.json")
 detector.loadModel()
 
