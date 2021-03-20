@@ -1,11 +1,25 @@
 import cv2
 import imutils
-import wget
 from flask_opencv_streamer.streamer import Streamer
 from imageai.Detection.Custom import CustomVideoObjectDetection
+from google.cloud import storage
 
-url = 'https://github.com/prafair/detect-parking-lot/raw/main/detection_model-ex-017--loss-0022.945.h5'
-wget.download(url, 'model.h5')
+bucket_name = "fleet-tractor-308119.appspot.com"
+source_blob_name = "detection_model-ex-017--loss-0022.945.h5"
+destination_file_name = "new_model.h5"
+
+storage_client = storage.Client(project="fleet-tractor-308119")
+
+bucket = storage_client.bucket(bucket_name)
+
+blob = bucket.blob(source_blob_name)
+blob.download_to_filename(destination_file_name)
+
+print(
+    "Blob {} downloaded to {}.".format(
+        source_blob_name, destination_file_name
+    )
+)
 
 port = 8080
 require_login = False
@@ -15,7 +29,7 @@ camera = cv2.VideoCapture("https://s2.moidom-stream.ru/s/public/0000010491.m3u8"
 
 detector = CustomVideoObjectDetection()
 detector.setModelTypeAsYOLOv3()
-detector.setModelPath("model.h5")
+detector.setModelPath("new_model.h5")
 detector.setJsonPath("detection_config.json")
 detector.loadModel()
 

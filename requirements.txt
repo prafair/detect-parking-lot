@@ -12,3 +12,4 @@ flask_opencv_streamer
 imutils==0.5.4
 imageai==2.1.6
 wget~=3.2
+google-cloud-storage
