@@ -18,6 +18,7 @@ RUN which pip
 WORKDIR /usr/src/app
 COPY . .
 RUN pip3 install tensorflow-cpu==2.4.0
+RUN pip3 install cffi
 RUN pip install --no-cache-dir -r requirements.txt
 ADD https://github.com/prafair/detect-parking-lot/raw/main/detection_model-ex-017--loss-0022.945.h5 /tmp/new_model.h5
 EXPOSE 80
