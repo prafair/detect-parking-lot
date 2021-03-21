@@ -1,30 +1,13 @@
+import os
+
 import cv2
 import imutils
-import os
 from flask_opencv_streamer.streamer import Streamer
 from imageai.Detection.Custom import CustomVideoObjectDetection
-from google.cloud import storage
 
 execution_path = os.getcwd()
 
-bucket_name = "fleet-tractor-308119.appspot.com"
-source_blob_name = "detection_model-ex-017--loss-0022.945.h5"
-destination_file_name = os.path.join(execution_path, "/tmp/new_model.h5")
-
-storage_client = storage.Client(project="fleet-tractor-308119")
-
-bucket = storage_client.bucket(bucket_name)
-
-blob = bucket.blob(source_blob_name)
-blob.download_to_filename(destination_file_name)
-
-print(
-    "Blob {} downloaded to {}.".format(
-        source_blob_name, destination_file_name
-    )
-)
-
-port = 8080
+port = 80
 require_login = False
 streamer = Streamer(port, require_login)
 
