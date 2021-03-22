@@ -15,7 +15,7 @@ camera = cv2.VideoCapture("https://s2.moidom-stream.ru/s/public/0000010491.m3u8"
 
 detector = CustomVideoObjectDetection()
 detector.setModelTypeAsYOLOv3()
-detector.setModelPath(os.path.join(execution_path, "/tmp/new_model.h5"))
+detector.setModelPath(os.path.join(execution_path, "detection_model-ex-017--loss-0022.945.h5"))
 detector.setJsonPath("detection_config.json")
 detector.loadModel()
 
