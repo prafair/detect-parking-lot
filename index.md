@@ -1,37 +1,40 @@
-## Welcome to GitHub Pages
+# Описание проекта
 
-You can use the [editor on GitHub](https://github.com/prafair/detect-parking-lot/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Проект создан для хакатона iVision 2021 http://ivision.citylink.pro/
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+**Задача:** Используя алгоритмы распознавания объектов необходимо создать онлайн сервис, показывающий количество
+свободных парковочных мест при просмотре конкретного видеопотока.
 
-### Markdown
+# Ход решения
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Ход решения можно наблюдать в notebook _DetectFreeParkingLot.ipynb_
 
-```markdown
-Syntax highlighted code block
+# Обучение
 
-# Header 1
-## Header 2
-### Header 3
+Обучение проводилось на основе YOLOv3 модели. <br>
 
-- Bulleted
-- List
+Предоставленные фотографии парковок были уменьшены до размеров 534 x 376 и затем размечены в программе LabelIMG.
 
-1. Numbered
-2. List
+Для первой парковки на Ленина использовалось 150 изображений, размеченных по занятым и незанятым парковочным
+местам. <br>
+Потери составили примерно 20. <br>
 
-**Bold** and _Italic_ and `Code` text
+Для второй парковки около вокзала использовалось 200 изображений. Потери составили примерно 16. <br>
 
-[Link](url) and ![Image](src)
-```
+Количество эпох составило 100 для обоих случаев.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+# Запуск
 
-### Jekyll Themes
+Запустить приложение можно несколькими способами:
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/prafair/detect-parking-lot/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+1. Установить все зависимости локально и запустить команду: <br>
+   `python main.py`
+2. Docker: <br>
+   `docker run -p 80:80 prafair/detect-parking-spots`
 
-### Support or Contact
+# Деплой
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Для деплоя используется DigitalOcean: <br>
+https://prafair-detect-parking-spots-x9el5.ondigitalocean.app/ - парковка на Ленина <br>
+https://prafair-detect-parking-spots-2-sakq6.ondigitalocean.app/ - парковка у ж/д вокзала
+
