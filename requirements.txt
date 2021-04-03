@@ -11,3 +11,4 @@ flask_opencv_streamer
 imutils==0.5.4
 imageai==2.1.6
 gmplot==1.4.1
+telebot==0.0.4
