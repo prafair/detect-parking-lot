@@ -2,6 +2,7 @@ import os
 
 import cv2
 import imutils
+from flask import jsonify
 from flask_opencv_streamer.streamer import Streamer
 from imageai.Detection.Custom import CustomVideoObjectDetection
 
@@ -19,26 +20,39 @@ detector.setModelPath("detection_model-ex-017--loss-0022.945.h5")
 detector.setJsonPath("detection_config.json")
 detector.loadModel()
 
+lenina_empty_spots = 0
+lenina_occupied_spots = 0
+
+
+@streamer.flask.route('/lenina')
+def get_data_lenina():
+    return jsonify([lenina_empty_spots, lenina_occupied_spots])
+
 
 def forFrame(frame_number, output_array, output_count, return_detected_frame):
+    global lenina_empty_spots, lenina_occupied_spots
     frame_video = imutils.resize(return_detected_frame, width=800)
     if frame_number % 100 == 0:
         if 'empty_spot' in output_count:
+            lenina_empty_spots = output_count['empty_spot']
             print("Free parked spots: ", output_count['empty_spot'])
-            cv2.putText(frame_video, "Free parked spots {}".format(output_count['empty_spot']), (200, 30),
-                        cv2.FONT_HERSHEY_DUPLEX, 1.0, (30, 144, 255), 1)
+            # cv2.putText(frame_video, "Free parked spots {}".format(output_count['empty_spot']), (200, 30),
+            #             cv2.FONT_HERSHEY_DUPLEX, 1.0, (30, 144, 255), 1)
         else:
+            lenina_empty_spots = 0
             print("Free parked spots: 0")
-            cv2.putText(frame_video, "Free parked spots: 0", (200, 30),
-                        cv2.FONT_HERSHEY_DUPLEX, 1.0, (30, 144, 255), 1)
+            # cv2.putText(frame_video, "Free parked spots: 0", (200, 30),
+            #             cv2.FONT_HERSHEY_DUPLEX, 1.0, (30, 144, 255), 1)
         if 'occupied_spot' in output_count:
+            lenina_occupied_spots = output_count['occupied_spot']
             print("Occupied parked spots ", output_count['occupied_spot'])
-            cv2.putText(frame_video, "Occupied parked spots {}".format(output_count['occupied_spot']), (200, 60),
-                        cv2.FONT_HERSHEY_DUPLEX, 1.0, (30, 144, 255), 1)
+            # cv2.putText(frame_video, "Occupied parked spots {}".format(output_count['occupied_spot']), (200, 60),
+            #             cv2.FONT_HERSHEY_DUPLEX, 1.0, (30, 144, 255), 1)
         else:
+            lenina_occupied_spots = 0
             print("Occupied parked spots: 0")
-            cv2.putText(frame_video, "Occupied parked spots: 0", (200, 60),
-                        cv2.FONT_HERSHEY_DUPLEX, 1.0, (30, 144, 255), 1)
+            # cv2.putText(frame_video, "Occupied parked spots: 0", (200, 60),
+            #             cv2.FONT_HERSHEY_DUPLEX, 1.0, (30, 144, 255), 1)
 
         streamer.update_frame(frame_video)
         if not streamer.is_streaming:
