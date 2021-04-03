@@ -35,6 +35,6 @@
 # Деплой
 
 Для деплоя используется DigitalOcean: <br>
-https://prafair-detect-parking-spots-x9el5.ondigitalocean.app/ - парковка на Ленина
+https://prafair-detect-parking-spots-x9el5.ondigitalocean.app/ - парковка на Ленина <br>
 https://prafair-detect-parking-spots-2-sakq6.ondigitalocean.app/ - парковка у ж/д вокзала
 
