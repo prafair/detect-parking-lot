@@ -6,7 +6,7 @@ h5py==2.10.0
 matplotlib==3.3.2
 opencv-python~=4.5.1.48
 keras-resnet==0.2.0
-Flask==1.1.2
+Flask==2.3.2
 flask_opencv_streamer
 imutils==0.5.4
 imageai==2.1.6
